@@ -27,6 +27,9 @@ class: center, middle
 # Previously on JavaScript
 Séance de rattrapage pour tous niveaux
 
+.footnote[Grégory LE GAREC]
+???
+Test
 ---
 
 # Previously on JavaScript
@@ -68,22 +71,104 @@ layout: false
 background-image: url(img/clint.jpg)
 class: break
 
-# JQuery
+# jQuery
 ## 2008-2012
 Pour quelques dollars de plus
 
 ---
 
-- Requêtage sur le DOM
-- Magie mais que JS
-- Rappel sur les appels
+layout:true
+
+# jQuery
 
 ---
 
-# Parallèlement : underscore, mootools
-    - Libs helpers
+Requêtage sur le DOM
+
+```javascript
+$('.optional').hide();
+
+$('.items:not(mandatory) label').css('opacity', '.2')
+```
 
 ---
+
+> _"Ah oui ça c'est possible en jQuery"_
+
+jQuery **est écrit en JavaScript**.
+
+---
+
+Rappel : les appels sont coûteux
+
+```javascript
+$('.item .infos .name').prepend('<span>Name :</span>');
+$('.item .infos .name').on('click', function(event){ ... });
+$('.item .infos .name').show();
+```
+Les stocker dans des variables l'est beaucoup moins
+
+```javascript
+var $names = $('.item .infos .name');
+
+$names.prepend('<span>Name :</span>');
+$names.on('click', function(event){ ... });
+$names.show();
+```
+
+---
+
+Rappel : ne pas abuser non plus
+
+```javascript
+$('.item').parent().parent().parent().addClass('active-row')
+```
+
+Selon les situations
+- utiliser des `ids`
+- Utiliser la délégation d'évènements `on('click', '.item', ...)`
+
+---
+
+Limites
+
+- Sur-utilisation du DOM
+
+- Code fortement dépendant et lié au DOM
+
+- fichier `page.js` fourre-tout (fourre-merde ?)
+
+- Pas de mécanismes de gestion des dépendances
+
+- Maintenabilité du code limitée
+
+---
+
+## Dans le même temps
+a.k.a. les libs que j'ai ratées
+
+- Mootools
+
+???
+Mootools : Même fonctionnalités que jQuery en étandant davantage le langage (object, Ajax), moins DOM basedpPrototype.js:
+
+--
+
+- prototype.js
+
+???
+Lib essayant de faire rentrer JavaScript dans une logique objet à la Java
+
+--
+
+- underscore
+
+???
+Lib utilities/helpers purement logique (pas de relation au DOM)
+
+---
+
+layout: false
 
 # 2013 Backbone
     - MVP/MVVM
