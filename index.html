@@ -35,6 +35,7 @@ Test
 # Previously on JavaScript
 - Big bang, premiers eucaryotes
 --
+count:false
 
 - ... quelques slides conneries
 
@@ -49,21 +50,42 @@ class: break
 ---
 
 layout: true
-class: center
 
 # Premiers émois
 
 ---
 
-Incompatibilité entre browsers
+Incompatibilité entre navigateurs
+
+???
+Premier stage en web agency, faire fonctionner un menu déroulant sous IE6 windows/ IE5.5 Mac
 
 ---
 
-Code côté client
+Comprendre l'aspect "client"
 
 ---
 
-Jouer avec le DOM, getElementById, getElementsByTagName
+## Interagir avec le DOM
+
+getElementById, getElementsByTagName
+
+```javascript
+// easy 👍
+var monDiv = document.getElementById('target');
+
+// pas easy 😱
+var divs = document.getElementsByTagName('div');
+var items = []
+for(var i = 0; i < divs.length; i++){
+  if(divs[i].className === 'item'){
+    items.push(divs[i])
+  }
+}
+```
+
+--
+Moi : "Expert JS"
 
 ---
 
@@ -71,15 +93,18 @@ layout: false
 background-image: url(img/clint.jpg)
 class: break
 
-# jQuery
+# jQuery : Pour quelques dollars de plus
 ## 2008-2012
-Pour quelques dollars de plus
 
 ---
 
 layout:true
 
 # jQuery
+
+---
+
+Abstrait la gestion des incompatibilités (Firefox/IE)
 
 ---
 
@@ -90,6 +115,10 @@ $('.optional').hide();
 
 $('.items:not(mandatory) label').css('opacity', '.2')
 ```
+
+--
+
+À l'origine d'une certaine façon de penser le développement front.
 
 ---
 
@@ -153,6 +182,7 @@ a.k.a. les libs que j'ai ratées
 Mootools : Même fonctionnalités que jQuery en étandant davantage le langage (object, Ajax), moins DOM basedpPrototype.js:
 
 --
+count:false
 
 - prototype.js
 
@@ -160,46 +190,191 @@ Mootools : Même fonctionnalités que jQuery en étandant davantage le langage (
 Lib essayant de faire rentrer JavaScript dans une logique objet à la Java
 
 --
+count:false
 
 - underscore
 
 ???
 Lib utilities/helpers purement logique (pas de relation au DOM)
 
+--
+count:false
+
+Moi : "spécialiste JS"
+
 ---
 
 layout: false
+class: break
+background-image: url(img/planet-of-the-apes-ending.jpg)
 
-# 2013 Backbone
-    - MVP/MVVM
-    - Gestion des dépendances
-    - One page app
-        - Limite DOM/JS
-        - De plus en plus d'intelligence dans le browser
-        - Full JS
-        - ExtJS
-    - Citer Meteor, etc
+# Planet of the Apps
+## 2013 - De nos jours
 
 ---
 
-# NodeJS : JavaScript côté serveur
-    - Tournant :
-        - Facilité de test du code
-        - Mutualisation des modules de code
-        - CommonJS, AMD
+layout: true
+
+# Planet of the Apps
 
 ---
 
-# 2014 VanillaJS + RequireJS
-    - "Coincer“ dans l'objet : mauvaise idée
-    - Langange prototypale
+- De plus en plus de logique est gérée côté client
+
+--
+
+- "One page app" : routing, rôle du navigateur allégé
+
+--
+
+- Meilleure gestion des dépendances (côté serveur ou client avec RequireJS)
 
 ---
 
-# 2016 ES6 + Babel + webpack
-    - Browser en tant que plateforme
+## Expérience personnelle
+
+### ExtJS
+
+```javascript
+Ext.Viewport.add({
+    xtype: 'tabpanel',
+    items: [{
+        title: 'Employee Directory',
+        iconCls: 'x-fa fa-users'
+    },{
+        title: 'About Sencha',
+        iconCls: 'x-fa fa-info-circle'
+    }]
+});
+```
+
+--
+
+- Gestion des dépendances
+--
+
+- Interface très riches
+--
+
+- Pour application très lourde
+--
+
+- Pattern MVC/MVVM
+
+--
+
+
+???
+freelance
 
 ---
+
+## Expérience personnelle
+
+### Backbone
+
+
+---
+
+## NodeJS
+
+- Facilité de test du code
+
+--
+
+- Mutualisation des modules de code : CommonJS, AMD
+
+--
+
+- grunt, gulp : Développement "industriel" de JavaScript
+
+--
+
+- build
+
+---
+
+## NodeJS : exemple
+
+```javascript
+// hello-world.js
+var helloWorld = function(){
+  console.log('Hello World');
+}
+
+module.exports = helloWorld;
+
+// app.js
+var hello = require('./hellow-world.js')
+hello();
+```
+
+---
+
+## Retour en grâce du Vanilla JS
+
+- Fin du modèle orienté DOM de jQuery
+- Rationnalisation et industrialisation des développement JS
+- Gestion des dépendances
+
+---
+
+## VanillaJS : l'exemple de Bunkr
+
+- Longue hésitation sur le framework à retenir
+
+--
+
+- Plongé dans le VanillaJS extrêmement formatrice
+
+--
+
+- Moi : "Développeur JS"
+
+---
+
+## VanillaJS : l'approche prototypale
+
+---
+
+## VanillaJS : composition plutôt qu'héritage
+
+---
+
+## VanillaJS : ES6/ES2015
+
+- import
+- Arrow functions
+- Promises
+
+---
+
+## VanillaJS : approche fonctionnelle
+
+---
+
+# React
+
+- Permis par Babel, webpack
+
+- Virtual DOM
+
+- JSX
+
+```jsx
+
+```
+
+Moi: "Développeur front"
+
+---
+
+# React
+
+- Limite : enfermement technique à la CoffeeScript
+
+---
+layout: false
 
 # To be continued ...
 - Passé d'un langage anecdotique à central dans toute l'industrie
@@ -212,7 +387,7 @@ layout: false
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
     </script>
     <script>
-      var slideshow = remark.create();
+      var slideshow = remark.create({countIncrementalSlides: false});
     </script>
   </body>
 </html>
