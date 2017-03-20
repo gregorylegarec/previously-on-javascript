@@ -27,17 +27,35 @@ class: center, middle
 # Previously on JavaScript
 Séance de rattrapage pour tous niveaux
 
-.footnote[Grégory LE GAREC]
-???
-Test
+.footnote[Grégory LE GAREC - Développeur JS et focus disrupter chez Cozy]
+
+.footnote[[@gregorylegarec](http://twitter.com/gregorylegarec) / [@gregocentrique](http://twitter.com/gregocentrique)]
 ---
 
-# Previously on JavaScript
-- Big bang, premiers eucaryotes
---
-count:false
+class: break
+background-image: url(img/bigbang.jpg)
 
-- ... quelques slides conneries
+---
+
+class: break
+background-image: url(img/eucaryotes.jpg)
+
+???
+Il y a 2 milliards d'années
+---
+
+class: break
+background-image: url(img/egypte.jpg)
+
+---
+
+class: break
+background-image: url(img/explosion.jpg)
+
+---
+
+class: break
+background-image: url(img/billgates.jpg)
 
 ---
 
@@ -59,11 +77,6 @@ Incompatibilité entre navigateurs
 
 ???
 Premier stage en web agency, faire fonctionner un menu déroulant sous IE6 windows/ IE5.5 Mac
-
----
-
-Comprendre l'aspect "client"
-
 ---
 
 ## Interagir avec le DOM
@@ -86,6 +99,10 @@ for(var i = 0; i < divs.length; i++){
 
 --
 Moi : "Expert JS"
+
+---
+
+Comprendre l'aspect "client"
 
 ---
 
@@ -182,7 +199,6 @@ a.k.a. les libs que j'ai ratées
 Mootools : Même fonctionnalités que jQuery en étandant davantage le langage (object, Ajax), moins DOM basedpPrototype.js:
 
 --
-count:false
 
 - prototype.js
 
@@ -190,7 +206,6 @@ count:false
 Lib essayant de faire rentrer JavaScript dans une logique objet à la Java
 
 --
-count:false
 
 - underscore
 
@@ -198,7 +213,6 @@ count:false
 Lib utilities/helpers purement logique (pas de relation au DOM)
 
 --
-count:false
 
 Moi : "spécialiste JS"
 
@@ -231,9 +245,7 @@ layout: true
 
 ---
 
-## Expérience personnelle
-
-### ExtJS
+## Expérience personnelle ExtJS
 
 ```javascript
 Ext.Viewport.add({
@@ -247,7 +259,6 @@ Ext.Viewport.add({
     }]
 });
 ```
-
 --
 
 - Gestion des dépendances
@@ -261,24 +272,50 @@ Ext.Viewport.add({
 
 - Pattern MVC/MVVM
 
---
-
-
 ???
 freelance
 
 ---
 
-## Expérience personnelle
+## Expérience personnelle : Backbone
 
-### Backbone
+- MVVM
 
+--
+
+- Templates
+
+--
+
+- Modularisation/découpage
+
+---
+
+## Expérience personnelle : Backbone
+
+```javascript
+app.Todo = Backbone.Model.extend({
+	// Default attributes for the todo
+	// and ensure that each todo created has `title` and `completed` keys.
+	defaults: {
+		title: '',
+		completed: false
+	},
+
+	// Toggle the `completed` state of this todo item.
+	toggle: function () {
+		this.save({
+			completed: !this.get('completed')
+		});
+	}
+});
+```
 
 ---
 
 ## NodeJS
 
-- Facilité de test du code
+- Facilité de test du code (Mocha, Jest)
 
 --
 
@@ -314,14 +351,26 @@ hello();
 ## Retour en grâce du Vanilla JS
 
 - Fin du modèle orienté DOM de jQuery
+
+???
+Rationalisation logicielle,  déplacement d'une vraie logique métier, non plus raccrochée au DOM
+--
+
 - Rationnalisation et industrialisation des développement JS
+
+???
+Augmention des processus qualité, développement, tests de code, etc.
+--
+
 - Gestion des dépendances
 
+???
+RequireJS
 ---
 
 ## VanillaJS : l'exemple de Bunkr
 
-- Longue hésitation sur le framework à retenir
+- Longue hésitation sur le framework à retenir (Angular ? React ?)
 
 --
 
@@ -335,6 +384,25 @@ hello();
 
 ## VanillaJS : l'approche prototypale
 
+```javascript
+var Dog = function( name, race ){
+  this.race = race
+}
+
+var brutus = new Dog('brutus', 'yorkshire');
+var titus = new Dog('titus', 'pitbull');
+
+Dog.prototype.bark = function(){
+  console.log(this.name + ': woof.');
+}
+
+brutus.bark();
+titus.bark();
+```
+
+???
+Méconnaissance de ce mécanisme force à utiliser les classes
+
 ---
 
 ## VanillaJS : composition plutôt qu'héritage
@@ -344,28 +412,100 @@ hello();
 ## VanillaJS : ES6/ES2015
 
 - import
+
+--
+
 - Arrow functions
+
+--
+
 - Promises
+
+--
+
+```javascript
+// item-helper.js
+import { getAsyncItems } from './async'
+
+export const fetchTheItemINeed = (url, id) => {
+  return getAsyncItems.then( items => items.find( item => item.id === id ))
+}
+
+// app.js
+import { fetchTheItemINeed } from '?./item-helper'
+
+fetchTheItemINeed(url, '5454456')
+  .then( item => {
+    // ...
+  })
+```
 
 ---
 
 ## VanillaJS : approche fonctionnelle
 
+- Fonctions pures
+
+--
+
+- Fonctions de premier ordre
+
+--
+
+- map / reduce
+
+--
+
+```javascript
+const flaggedItemsCount = (items , flag) => {
+  return items.reduce( (total, item) => {
+    return item.flags.indexOf(flag) !== -1 ?  total + 1 : total
+  }, 0)
+}
+
+otherFunction(items, flaggedItemsCount)
+```
+
+
+???
+Retour en force de ce paradigme
+
 ---
 
 # React
 
-- Permis par Babel, webpack
+- Orienté composant
+
+- JSX : Utilisation de Babel
 
 - Virtual DOM
 
-- JSX
+---
+
+# React
 
 ```jsx
+class ShoppingList extends React.Component {
+  render() {
+    return (
+      <div className="shopping-list">
+        <h1>Shopping List for {this.props.name}</h1>
+        <ul>
+          <li>Instagram</li>
+          <li>WhatsApp</li>
+          <li>Oculus</li>
+        </ul>
+      </div>
+    );
+  }
+}
 
+// Example usage: <ShoppingList name="Mark" />
 ```
 
-Moi: "Développeur front"
+--
+
+Moi : "Développeur front"
 
 ---
 
@@ -377,12 +517,24 @@ Moi: "Développeur front"
 layout: false
 
 # To be continued ...
-- Passé d'un langage anecdotique à central dans toute l'industrie
-- Developer JS/Developer front : métier à part entière
-- Écosystème en constante évolution, veille importante
-- Choix d'utilisation d'outils matures ou des dernières nouveautés
-- Prochain episode ?
 
+- Passé d'un langage anecdotique à central dans toute l'industrie
+
+--
+
+- Developer JS/Developer front : métier à part entière
+
+--
+
+- Écosystème en constante évolution, veille importante
+
+--
+
+- Choix d'utilisation d'outils matures ou des dernières nouveautés
+
+--
+
+- Vanilla JS : l'école du JS
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
     </script>
